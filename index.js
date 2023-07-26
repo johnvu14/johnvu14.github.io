@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
         yAxisID: 'y-axis-2',
       },
       {
-        label: 'Size',
+        label: 'Invitations Issued',
         type: 'bar',
         data: [],
         borderColor: color,
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
         responsive: true,
         title: {
           display: true,
-          text: 'CRS Score Trend Over Time',
+          text: 'CRS score and size over time',
         },
         tooltip: {
           callbacks: {
