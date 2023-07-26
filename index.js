@@ -49,7 +49,7 @@ const getSliceOffset = option => {
 
 document.querySelector(
   'footer'
-).innerHTML += `&copy; ${new Date().getFullYear()} <i>made by Tan with 💚</i>`;
+).innerHTML += `&copy; ${new Date().getFullYear()} <i>made by Tan with</i> 💚`;
 
 document.addEventListener('DOMContentLoaded', function () {
   const barColor = getRandomBrightColor();
