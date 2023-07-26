@@ -29,14 +29,17 @@ const getSliceOffset = option => {
   let offset = undefined;
 
   switch (option) {
-    case 'last10Draws':
+    case 'latest10Draws':
       offset = 10;
       break;
-    case 'last25Draws':
+    case 'latest25Draws':
       offset = 25;
       break;
-    case 'last50Draws':
+    case 'latest50Draws':
       offset = 50;
+      break;
+    case 'latest100Draws':
+      offset = 100;
       break;
     default:
       break;
@@ -123,9 +126,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener('alpine:init', () => {
   const periodOptions = [
-    { label: 'Last 10 draws', value: 'last10Draws' },
-    { label: 'Last 25 draws', value: 'last25Draws' },
-    { label: 'Last 50 draws', value: 'last50Draws' },
+    { label: 'Latest 10 draws', value: 'latest10Draws' },
+    { label: 'Latest 25 draws', value: 'latest25Draws' },
+    { label: 'Latest 50 draws', value: 'latest50Draws' },
+    { label: 'Latest 100 draws', value: 'latest100Draws' },
     { label: 'All draws', value: 'allDraws' },
   ];
 
@@ -143,7 +147,7 @@ document.addEventListener('alpine:init', () => {
         return period;
       }
 
-      return 'last10Draws';
+      return 'latest10Draws';
     })(),
     init() {
       fetch(API)
