@@ -3,14 +3,17 @@ const API =
   'https://www.canada.ca/content/dam/ircc/documents/json/ee_rounds_123_en.json';
 
 Chart.defaults.color = '#fff';
+Chart.defaults.font.weight = 'bold';
+Chart.defaults.font.size = '16';
 
-function getRandomColor() {
-  const getRandomInt = (min, max) =>
-    Math.floor(Math.random() * (max - min + 1)) + min;
+function getRandomBrightColor() {
+  const getBrightRandomInt = (min, max) =>
+    Math.floor(Math.random() * (max - min + 1) * 0.7) +
+    Math.floor((max - min + 1) * 0.3);
 
-  const red = getRandomInt(0, 255);
-  const green = getRandomInt(0, 255);
-  const blue = getRandomInt(0, 255);
+  const red = getBrightRandomInt(100, 255); // Adjust the minimum value to avoid very dark colors
+  const green = getBrightRandomInt(100, 255); // Adjust the minimum value to avoid very dark colors
+  const blue = getBrightRandomInt(100, 255); // Adjust the minimum value to avoid very dark colors
 
   return [red, green, blue];
 }
@@ -19,7 +22,7 @@ const footer = (items, drawsData) => {
   const drawsByDate = drawsData?.drawsByDate;
   const draw = drawsByDate[items[0]['label']];
 
-  return `#${draw['drawNumber']} - ${draw['drawName']}.`;
+  return `#${draw['drawNumber']} - ${draw['drawName']}`;
 };
 
 const getSliceOffset = option => {
@@ -43,10 +46,11 @@ const getSliceOffset = option => {
 
 document.querySelector(
   'footer'
-).innerHTML += `&copy; ${new Date().getFullYear()} made by Tan with 💚`;
+).innerHTML += `&copy; ${new Date().getFullYear()} <i>made by Tan with 💚</i>`;
 
 document.addEventListener('DOMContentLoaded', function () {
-  const barColor = getRandomColor();
+  const barColor = getRandomBrightColor();
+  const color = `rgb(${barColor[0]}, ${barColor[1]}, ${barColor[2]})`;
 
   const data = {
     labels: [],
@@ -64,8 +68,8 @@ document.addEventListener('DOMContentLoaded', function () {
         label: 'Size',
         type: 'bar',
         data: [],
-        borderColor: `rgb(${barColor[0]}, ${barColor[1]}, ${barColor[2]})`,
-        backgroundColor: `rgb(${barColor[0]}, ${barColor[1]}, ${barColor[2]}, 0.5)`,
+        borderColor: color,
+        backgroundColor: color,
         fill: false,
         yAxisID: 'y-axis-1',
       },
@@ -90,6 +94,14 @@ document.addEventListener('DOMContentLoaded', function () {
         tooltip: {
           callbacks: {
             footer,
+            labelColor: function (context) {
+              return {
+                borderColor: 'rgb(0, 0, 0, 0)',
+                backgroundColor: 'rgb(0, 0, 0, 0)',
+                borderWidth: 1,
+                borderRadius: 1,
+              };
+            },
           },
         },
       },
